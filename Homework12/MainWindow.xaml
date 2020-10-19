@@ -1,0 +1,315 @@
+﻿<Window x:Class="Homework12.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Homework12"
+        xmlns:vm="clr-namespace:Homework12.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="719.5" Width="1179"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:MainViewModul/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition
+                x:Name="Col1"
+                Width="200"/>
+
+            <ColumnDefinition
+                x:Name="Col2"
+                Width="76*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            HorizontalAlignment="Left" 
+            Height="679" 
+            VerticalAlignment="Top"
+            Width="200">
+
+            <TextBlock 
+                Height="23" 
+                TextWrapping="Wrap" 
+                Text="Выберите департамент"
+                Margin="5"/>
+
+            <ComboBox
+                x:Name="cmbDep"
+                Margin="5"
+                ItemsSource="{Binding DepCol}"
+                Text="{Binding Dep}"/>
+
+            <TextBlock 
+                Height="23" 
+                TextWrapping="Wrap" 
+                Text="Выберите отдел"
+                Margin="5"/>
+
+            <ComboBox
+                x:Name="cmbDivision"
+                Margin="5"
+                ItemsSource="{Binding DivisionCol}"
+                Text="{Binding Division}"/>
+
+            <TextBlock 
+                Height="23" 
+                TextWrapping="Wrap" 
+                Text="Введите имя и фамилию"
+                Margin="5"/>
+
+            <TextBox
+                x:Name="txbName"
+                Height="23" 
+                TextWrapping="Wrap"
+                Margin="5"
+                Text="{Binding Name}"/>
+
+            <TextBlock 
+                Height="23" 
+                TextWrapping="Wrap" 
+                Text="Введите должность"
+                Margin="5"/>
+
+            <TextBox
+                x:Name="txbPosition"
+                Height="23" 
+                TextWrapping="Wrap"
+                Margin="5"
+                CharacterCasing="Lower"
+                Text="{Binding Position}"/>
+
+            <TextBlock 
+                Height="37" 
+                TextWrapping="Wrap" 
+                Text="Введите количество рабочих часов"
+                Margin="5"/>
+
+            <TextBox
+                x:Name="txbWorkHour"
+                Height="23" 
+                TextWrapping="Wrap"
+                Margin="5"
+                Text="{Binding WorkHour}"
+                Style="{StaticResource TextBox}">
+
+            </TextBox>
+
+            <TextBlock 
+                Height="37" 
+                TextWrapping="Wrap" 
+                Text="Введите количество рабочих дней"
+                Margin="5"/>
+
+            <TextBox 
+                x:Name="txbWorkDays"
+                Height="23" 
+                TextWrapping="Wrap" 
+                Margin="5"
+                Text="{Binding WorkDays}"
+                Style="{StaticResource TextBox}"/>
+
+            <Button 
+                x:Name="btnAdd"
+                Content="Добавить"
+                Margin="5" 
+                Command="{Binding AddNewWorker}"/>
+
+            <TextBlock 
+                Text="Выберите департамент и отдел"
+                Margin="5"/>
+
+            <ComboBox
+                x:Name="cmbDepShow"
+                Margin="5"
+                ItemsSource="{Binding DepCol}"
+                Text="{Binding DepShow}"/>
+
+            <ComboBox
+                x:Name="cmbDivisionShow"
+                Margin="5"
+                ItemsSource="{Binding DivisionCol}"
+                Text="{Binding DivisionShow}"/>
+
+            <Button 
+                x:Name="btnShow" 
+                Content="Показать"
+                Margin="5"
+                Style="{StaticResource Buttons}"
+                Command="{Binding ShowWorker}"/>
+
+            <TextBlock 
+                Text="Сохранить json"
+                Margin="5"/>
+
+            <Button 
+                x:Name="btnSave" 
+                Content="Сохранить"
+                Margin="5"
+                Command="{Binding SaveFile}"/>
+
+            <Button
+                x:Name="btnDel"
+                Content="Удалить работника"
+                Margin="5 20 5 5"
+                Command="{Binding DeleteWorker}"/>
+
+        </StackPanel>
+
+        <DataGrid 
+            x:Name="allDepWorkers"
+            Grid.Column="1" 
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserResizeRows="False"
+            CanUserDeleteRows="False"
+            Margin="10,284,10,10"
+            ItemsSource="{Binding DivCol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Style="{StaticResource DataGridStyle}"
+            SelectedItem="{Binding SelectedWorker}">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn 
+                    x:Name="workerName"
+                    Header="Имя"
+                    Binding="{Binding Name}"/>
+
+                <DataGridTextColumn 
+                    x:Name="DepColumn"
+                    Header="Департамент"
+                    Binding="{Binding Dep}"/>
+
+                <DataGridTextColumn 
+                    x:Name="DivisionColumn"
+                    Header="Отдел"
+                    Binding="{Binding Division}"/>
+
+                <DataGridTextColumn 
+                    x:Name="PositionColumn"
+                    Header="Должность"
+                    Binding="{Binding Position}"/>
+
+                <DataGridTextColumn 
+                    x:Name="HourColumn"
+                    Header="Рабочий день (часы)"
+                    Binding="{Binding WorkHour}"/>
+
+                <DataGridTextColumn 
+                    x:Name="DaysColumn"
+                    Header="Рабочие дни"
+                    Binding="{Binding WorkDays}"/>
+
+                <DataGridTextColumn 
+                    x:Name="SalaryColumn"
+                    Header="Зарплата $ (день)"
+                    Binding="{Binding Salary}"/>
+
+                <DataGridTextColumn 
+                    x:Name="MonthSalaryColumn"
+                    Header="Зарплата $ (Месяц)"
+                    Binding="{Binding MonthSalary}"/>
+
+            </DataGrid.Columns>
+
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                </Style>
+            </DataGrid.Resources>
+
+        </DataGrid>
+
+        <TextBlock 
+            x:Name="txtDirector"
+            Grid.Column="1"
+            HorizontalAlignment="Left"
+            Margin="10,250,0,0"
+            TextWrapping="Wrap"
+            Text="{Binding TxtDirector}"
+            VerticalAlignment="Top"
+            FontSize="15"/>
+
+        <TextBlock 
+            x:Name="txtDirectorSalary"
+            Grid.Column="1"
+            HorizontalAlignment="Left"
+            Margin="674,250,0,0"
+            TextWrapping="Wrap"
+            Text="{Binding TxtDirectorSalary}"
+            VerticalAlignment="Top"
+            FontSize="15"/>
+
+        <DataGrid 
+            Grid.Column="1" 
+            Height="181" 
+            Margin="10,31,5,0" 
+            VerticalAlignment="Top"
+            ItemsSource="{Binding AllPositions}"
+            CanUserAddRows="False"
+            CanUserResizeRows="False"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            Style="{StaticResource DataGridStyle}">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn 
+                    x:Name="newWorkerName"
+                    Header="Имя"
+                    Binding="{Binding Name}"/>
+
+                <DataGridTextColumn 
+                    x:Name="NewDepColumn"
+                    Header="Департамент"
+                    Binding="{Binding Dep}"/>
+
+                <DataGridTextColumn 
+                    x:Name="NewDivisionColumn"
+                    Header="Отдел"
+                    Binding="{Binding Division}"/>
+
+                <DataGridTextColumn 
+                    x:Name="NewPositionColumn"
+                    Header="Должность"
+                    Binding="{Binding Position}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock 
+            Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Height="23" Margin="10,217,0,0" 
+            TextWrapping="NoWrap" 
+            Text="Просмотр департамента" 
+            VerticalAlignment="Top" 
+            Width="147"/>
+
+        <TextBlock 
+            Grid.Column="1" 
+            HorizontalAlignment="Left"
+            Margin="10,10,0,0" 
+            TextWrapping="Wrap" 
+            Text="Добавленные в данную сессию" 
+            VerticalAlignment="Top"/>
+
+        <TextBlock 
+            Name="txtDirectorName"
+            Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Margin="343,250,0,0" 
+            TextWrapping="Wrap" 
+            Text="{Binding TxtDirectorName}" 
+            VerticalAlignment="Top"
+            FontSize="15"/>
+
+    </Grid>
+</Window>
+
